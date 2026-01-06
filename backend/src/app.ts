@@ -15,6 +15,7 @@ app.use(cors({
   credentials:true,
 })); 
 import userRouter from "./Routes/userRoutes";
+import StudentRoutes from "./Routes/StudentRoutes";
 app.get("/",(req : Request,res:Response)=>{
   res.send("hii harsh here")
 })
@@ -24,6 +25,7 @@ mongoose.connect(process.env.MONGO_URL!)
     .catch(err => console.log(err));
 
 app.use("/api/all",userRouter);
+app.use("/api/Student",StudentRoutes);
 const PORT=process.env.PORT || 3000;
 app.listen(PORT,()=>{
   console.log(`Server is listening to http://localhost:${PORT}`)
