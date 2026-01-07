@@ -51,7 +51,7 @@ export const particularAttendence=async(req:Request,res:Response)=>{
     }
 const user=(req as any).user;
 const userId=user.userId;
-const attendenceRecord=await AttendenceModel.find({userId,subjectName,subjectTeacher}).sort({date:1});
+const attendenceRecord=await AttendenceModel.find({userId,subject:subjectName,teacher:subjectTeacher}).sort({date:1});
     if(attendenceRecord.length===0){
         return res.status(404).json({
             message:"No attendence record found for this account"
