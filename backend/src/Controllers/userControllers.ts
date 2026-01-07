@@ -273,3 +273,25 @@ return res.status(200).json({
     data:handleUpdate,
 });
 }
+
+
+export const MakeAdmin=async(req:Request,res:Response)=>{
+    const {gmail}=req.body;
+    if(!gmail){
+        return res.status(401).json({
+            message:"gmail not found",
+        });
+    }
+    const handleAdmin=await userModel.findOne({gmail});
+    if(!handleAdmin){
+        return res.status(401).json({
+            message:"gmail not found in database",
+        });
+    }
+    handleAdmin.role='Admin';
+    await handleAdmin.save();
+    return res.status(200).json({
+        message:"Make Admin",
+        data:handleAdmin,
+    });
+}
