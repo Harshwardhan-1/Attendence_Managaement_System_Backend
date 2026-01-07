@@ -246,3 +246,30 @@ export const getUser=async(req:Request,res:Response)=>{
     return res.status(401).json({message:"Unauthorized"});
   }
 };
+
+
+
+
+
+
+
+export const UpdateProfile=async(req:Request,res:Response)=>{
+const {gmail}=req.body;
+if(!gmail){
+    return res.status(401).json({
+        message:"Provide Gmail",
+    });
+}
+const handleUpdate=await userModel.findOne({gmail});
+if(!handleUpdate){
+    return res.status(401).json({
+        message:"user not exist in database",
+    });
+}
+handleUpdate.role='Teacher';
+await handleUpdate.save();
+return res.status(200).json({
+    message:"Role upadted to Teacher",
+    data:handleUpdate,
+});
+}
