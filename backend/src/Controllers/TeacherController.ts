@@ -44,3 +44,19 @@ return res.status(200).json({
     data:findTeacher,
 });
 }
+
+
+export const fetch=async(req:Request,res:Response)=>{
+    const user=(req as any).user;
+    const userId=user.userId;
+    const getTeacher=await TeacherModel.findOne({userId});
+    if(!getTeacher){
+        return res.status(401).json({
+            message:"Teacher Not Found",
+        });
+    }
+    return res.status(200).json({
+        message:"ProfileFind",
+        data:getTeacher,
+    })
+}
