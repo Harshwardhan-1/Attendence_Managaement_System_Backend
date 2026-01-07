@@ -8,5 +8,5 @@ if(!user || user.role!== 'Teacher'){
 }
 next();
 }
-
+ 
 export default verifyTeacher;
