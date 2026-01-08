@@ -65,3 +65,33 @@ return res.status(200).json({
     data:markAttendence,
 });
 }
+
+
+
+
+
+
+
+export const getAttendence=async(req:Request,res:Response)=>{
+    const {name,gmail}=req.body;
+    if(!name || !gmail){
+        return res.status(401).json({
+            message:"provide detail",
+        });
+    }
+    const findStudent=await TeacherAttendenceModel.find({gmail});
+    if(!findStudent){
+        return res.status(401).json({
+            message:"not find student"
+        });
+    }
+    if(findStudent.length===0){
+        return res.status(401).json({
+            message:"no record",
+        });
+    }
+    return res.status(200).json({
+        message:"getStudentAttendence",
+        data:gmail,
+    });
+}
