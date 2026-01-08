@@ -31,3 +31,36 @@ export const markPresent=async(req:Request,res:Response)=>{
         data:MarkAttendence,
     });
 }
+
+
+
+export const markAbsent=async(req:Request,res:Response)=>{
+const {name,gmail,section}=req.body;
+if(!name || !gmail || !section){
+    return res.status(401).json({
+        message:"provide full detail",
+    });
+}
+const user=(req as any).user;
+const userId=user.userId;
+const today=new Date();
+const todayStr=today.toISOString();
+const find=await TeacherAttendenceModel.findOne({userId,gmail,date:todayStr,section});
+if(find){
+    res.status(401).json({
+        message:"user attendence already has been marked",
+    });
+}
+const markAttendence=await TeacherAttendenceModel.create({
+    userId:userId,
+    name,
+    gmail,
+    date:todayStr,
+    section,
+    attendence:"Absent",
+});
+return res.status(200).json({
+    message:"attendence mark successfully",
+    data:markAttendence,
+});
+}
