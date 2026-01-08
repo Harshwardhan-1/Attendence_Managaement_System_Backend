@@ -44,6 +44,7 @@ if(!name || !gmail || !section){
 const user=(req as any).user;
 const userId=user.userId;
 const today=new Date();
+today.setHours(0,0,0,0);
 const todayStr=today.toISOString();
 const find=await TeacherAttendenceModel.findOne({userId,gmail,date:todayStr,section});
 if(find){
