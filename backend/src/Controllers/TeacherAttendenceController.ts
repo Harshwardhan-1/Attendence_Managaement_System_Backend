@@ -48,7 +48,7 @@ today.setHours(0,0,0,0);
 const todayStr=today.toISOString();
 const find=await TeacherAttendenceModel.findOne({userId,gmail,date:todayStr,section});
 if(find){
-    res.status(401).json({
+   return res.status(401).json({
         message:"user attendence already has been marked",
     });
 }
